@@ -18,7 +18,6 @@ npm start
 - react-dom v_18.2.0
 - react-helmet v_6.1.0
 - react-hook-form v_7.34.0
-- react-scripts v_5.0.1
-- recoilv_0.7.4
+- recoil v_0.7.4
 - styled-components v_5.3.5
-- typescript v_4.8.3",
+- typescript v_4.8.3
