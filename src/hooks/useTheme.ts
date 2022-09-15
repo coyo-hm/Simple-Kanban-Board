@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Theme } from "../types";
 
-export default function useTheme() {
+export default function useCustomTheme() {
   const [theme, setTheme] = useState<Theme>("light");
   const setMode = (mode: Theme) => {
     mode === "light"

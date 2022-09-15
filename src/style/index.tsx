@@ -5,17 +5,14 @@ export const Container = styled.div`
   display: flex;
   max-width: 680px;
   width: 100%;
-  margin: 0 auto;
+  margin: 100px auto;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
 `;
 
 export const Boards = styled.div`
   width: 100%;
-  /* display: grid; */
-  /* gap: 10px; */
-  /* grid-template-columns: repeat(3, 1fr); */
   display: flex;
   flex-wrap: nowrap;
   overflow-y: hidden;
@@ -23,15 +20,12 @@ export const Boards = styled.div`
   padding-bottom: 20px;
 
   &::-webkit-scrollbar {
-    //스크롤바 전체
     width: 10px;
   }
   &::-webkit-scrollbar-thumb {
-    //스크롤 막대
     background: rgb(0, 0, 0);
   }
   &::-webkit-scrollbar-track {
-    //스크롤 막대 외부
     background: rgb(0, 0, 0, 0.3);
   }
 `;

@@ -20,15 +20,22 @@ import IconBinOpened from "../images/Icon_bin_opened.png";
 const CreateBoard = styled.form`
   width: 100%;
   text-align: center;
+  height: 100%;
+  position: relative;
 
   input {
     padding: 10px;
     margin-bottom: 20px;
     border: none;
     outline: none;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
   }
 
   button {
+    position: absolute;
+    bottom: calc(50% - 25px);
+    left: calc(50% - 25px);
     background: url(${IconPlusWhite}) no-repeat center/50px;
     width: 50px;
     height: 50px;
@@ -51,7 +58,8 @@ const DeleteBtn = styled.button`
   left: calc(50% - 25px);
 
   &:hover {
-    background: #181a1d url(${IconBinOpened}) no-repeat center/50px;
+    background: ${(prop) => prop.theme.hoverColor} url(${IconBinOpened})
+      no-repeat center/50px;
   }
 `;
 
@@ -67,13 +75,13 @@ function DroppableArea() {
 
   useEffect(() => {
     let savedTodo: IToDoState[] = JSON.parse(
-      sessionStorage.getItem("TODOS") || "[]"
+      localStorage.getItem("TODOS") || "[]"
     );
     setToDos(savedTodo);
   }, []);
 
   useEffect(() => {
-    sessionStorage.setItem("TODOS", JSON.stringify(toDos));
+    localStorage.setItem("TODOS", JSON.stringify(toDos));
   }, [toDos]);
 
   const onDragEnd = (info: DropResult) => {
@@ -198,7 +206,7 @@ function DroppableArea() {
         >
           {(provided) => (
             <Boards {...provided.droppableProps} ref={provided.innerRef}>
-              <BoardContainer>
+              <BoardContainer style={{ padding: "0" }}>
                 <CreateBoard onSubmit={handleSubmit(createBoard)}>
                   <input {...register("boardId", { required: true })} />
                   <button type="submit" />

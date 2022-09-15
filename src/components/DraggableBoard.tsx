@@ -8,8 +8,10 @@ import DraggableCard from "./DraggableCard";
 
 const Title = styled.h1`
   text-align: center;
-  margin-bottom: 15px;
+  padding-bottom: 15px;
   font-weight: 700;
+  color: ${(prop) => prop.theme.boardTitleColor};
+  font-size: 24px;
 `;
 
 interface IAreaProps {

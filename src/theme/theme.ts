@@ -5,11 +5,15 @@ export const darkTheme: DefaultTheme = {
   cardColor: "#ffffff",
   boardColor: "#DADFE9",
   textColor: "#444444",
+  boardTitleColor: "black",
+  hoverColor: "#DADFE9",
 };
 
 export const lightTheme: DefaultTheme = {
-  bgColor: "#2f3640",
+  bgColor: "#DADFE9",
   cardColor: "#ffffff",
-  boardColor: "#DADFE9",
+  boardColor: "#2f3640",
   textColor: "#444444",
+  boardTitleColor: "white",
+  hoverColor: "#181a1d",
 };

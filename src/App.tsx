@@ -3,9 +3,9 @@ import { GlobalStyle } from "./style/globalStyle";
 import { ThemeProvider as StyledProvider } from "styled-components";
 import { darkTheme, lightTheme } from "./theme/theme";
 import { Theme } from "./types";
-
-import DroppableArea from "./components/DroppableArea";
 import useCustomTheme from "./hooks/useTheme";
+
+import Home from "./components/Home";
 
 interface IThemeContext {
   theme: Theme;
@@ -26,7 +26,7 @@ function App() {
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <StyledProvider theme={theme === "dark" ? darkTheme : lightTheme}>
         <GlobalStyle />
-        <DroppableArea />
+        <Home />
       </StyledProvider>
     </ThemeContext.Provider>
   );

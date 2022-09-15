@@ -7,10 +7,9 @@ interface IToggle {
 }
 const ToggleWrapper = styled.div<IToggle>`
   position: absolute;
-  width: 200px;
-
+  width: 100px;
   top: 27px;
-  left: calc(50% + 120px);
+  right: 20px;
 
   label {
     position: absolute;
@@ -69,6 +68,7 @@ export default function ToggleTheme() {
           type="checkbox"
           checked={theme !== "dark"}
           onClick={toggleTheme}
+          readOnly
         />
         <span className="slider"></span>
       </label>
