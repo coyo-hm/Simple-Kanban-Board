@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.js": "/Simple-Kanban-Board/static/js/main.d4843b21.js",
+    "static/media/Icon_bin_closed.png": "/Simple-Kanban-Board/static/media/Icon_bin_closed.6e3e44a1e042545d96ff.png",
+    "static/media/Icon_plus_skyblue.png": "/Simple-Kanban-Board/static/media/Icon_plus_skyblue.ca4c087cfd86daf4f9e7.png",
+    "static/media/Icon_bin_opened.png": "/Simple-Kanban-Board/static/media/Icon_bin_opened.9ccf87da8b9711bbd60c.png",
+    "index.html": "/Simple-Kanban-Board/index.html",
+    "main.d4843b21.js.map": "/Simple-Kanban-Board/static/js/main.d4843b21.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.d4843b21.js"
+  ]
+}
