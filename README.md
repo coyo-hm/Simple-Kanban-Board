@@ -4,6 +4,15 @@
 ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/56423604/190454736-c55b9ec0-4d28-436e-bb20-7955f2828167.gif)
 
 > react-beautiful-dnd를 이용한 간단한 칸반 보드
+>
+> - react-beautiful-dnd를 사용하여 Drag and Drop이 가능한 Kanban Board를 구현하였습니다.
+카드끼리의 위치 이동은 물론 보드끼리의 위치 이동도 가능합니다. 또한 보드에서 다른 보드로 카드를 옮길 수 있습니다.
+> - 아래의 휴지통으로 보드나 카드를 드랍하면 해당 카드나 보드는 삭제됩니다.
+> - react-helmet을 사용하여 문서 타이틀을 변경하였습니다.
+> - context api를 사용하여 theme toggle을 구현하였습니다.
+> - 헤더의 제목이 길기 때문에 일정 폭 이하가 될 경우 소제목은 사라지도록 하였습니다.
+
+
 
 ## Quick Start
 
