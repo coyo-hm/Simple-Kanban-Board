@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet";
 import styled from "styled-components";
 import ToggleTheme from "../theme/ToggleTheme";
-import DroppableArea from "./DroppableArea";
+import DroppableArea from "../components/DroppableArea";
 
 const Container = styled.div`
   display: flex;

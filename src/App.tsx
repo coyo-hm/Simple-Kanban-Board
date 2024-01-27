@@ -5,7 +5,7 @@ import { darkTheme, lightTheme } from "./theme/theme";
 import { Theme } from "./types";
 import useCustomTheme from "./hooks/useTheme";
 
-import Home from "./components/Home";
+import Home from "./pages/Home";
 
 interface IThemeContext {
   theme: Theme;
