@@ -1,7 +1,7 @@
 {
   "homepage": "https://coyo-hm.github.io/Simple-Kanban-Board/",
   "name": "simple-kanban-board",
-  "version": "0.1.0",
+  "version": "1.2.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -51,6 +51,8 @@
   },
   "devDependencies": {
     "@types/react-beautiful-dnd": "^13.1.2",
-    "@types/react-helmet": "^6.1.5"
+    "@types/react-helmet": "^6.1.5",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.4"
   }
 }
