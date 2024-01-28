@@ -2,11 +2,17 @@ import "styled-components";
 
 declare module "styled-components" {
   export interface DefaultTheme {
-    cardColor: string;
     bgColor: string;
-    boardColor: string;
     textColor: string;
+    cardColor: string;
+    boardColor: string;
     boardTitleColor: string;
     hoverColor: string;
+    buttonHoverColor: string;
+
+    modal: {
+      dimColor: string;
+      bgColor: string;
+    };
   }
 }
