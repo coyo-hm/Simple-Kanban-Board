@@ -8,9 +8,10 @@ export const darkTheme: DefaultTheme = {
   boardTitleColor: "black",
   hoverColor: "#DADFE9",
   buttonHoverColor: "rgba(255, 255, 255, 0.055)",
+  blue: "rgb(35, 131, 226)",
   modal: {
     dimColor: "rgba(15, 15, 15, 0.8)",
-    bgColor: "rgb(32, 32, 3)",
+    bgColor: "rgb(32, 32, 32)",
   },
 };
 
@@ -22,6 +23,7 @@ export const lightTheme: DefaultTheme = {
   boardTitleColor: "white",
   hoverColor: "#181a1d",
   buttonHoverColor: "rgba(55, 53, 47, 0.08)",
+  blue: "rgb(35, 131, 226)",
   modal: {
     dimColor: "rgba(0, 0, 0, 0.4)",
     bgColor: "white",

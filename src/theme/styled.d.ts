@@ -9,7 +9,7 @@ declare module "styled-components" {
     boardTitleColor: string;
     hoverColor: string;
     buttonHoverColor: string;
-
+    blue: string;
     modal: {
       dimColor: string;
       bgColor: string;

@@ -6,14 +6,13 @@ import React, {
   useState,
 } from "react";
 import styled from "styled-components";
+import Modal from "../components/Modal";
 
 const Dim = styled.div`
   position: fixed;
-  background-color: rgba(15, 15, 15, 0.8);
+  background-color: ${(prop) => prop.theme.modal.dimColor};
   inset: 0;
 `;
-
-const ModalContainer = styled.dialog``;
 
 export interface ModalContextProps {
   setModal: Dispatch<SetStateAction<ReactNode>>;
@@ -31,8 +30,8 @@ const ModalProvider = ({ children }: Props) => {
       {children}
       {!!modal && (
         <>
-          <ModalContainer>{modal}</ModalContainer>
           <Dim />
+          <Modal content={modal} />
         </>
       )}
     </ModalContext.Provider>
