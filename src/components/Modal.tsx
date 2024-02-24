@@ -5,6 +5,7 @@ import useModal from "../hooks/useModal";
 
 const ModalContainer = styled.dialog`
   background-color: ${(prop) => prop.theme.modal.bgColor};
+  border: none;
   border-radius: 5px;
   overflow: hidden;
   position: fixed;
@@ -20,11 +21,11 @@ const ModalContainer = styled.dialog`
   flex-direction: column;
 
   & > header {
-    padding: 10px 12px;
+    padding: 20px 20px 10px;
   }
 
   & > div {
-    padding: 20px 30px 30px;
+    padding: 20px 50px 30px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
