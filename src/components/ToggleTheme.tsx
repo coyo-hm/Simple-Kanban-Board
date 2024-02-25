@@ -1,3 +1,4 @@
+import React from "react";
 import { useContext } from "react";
 import styled from "styled-components";
 import { ThemeContext } from "../App";
@@ -5,20 +6,21 @@ import { ThemeContext } from "../App";
 interface IToggle {
   isDark: boolean;
 }
+
 const ToggleWrapper = styled.div<IToggle>`
-  position: absolute;
-  width: 100px;
-  top: 27px;
-  right: 20px;
+  width: 50px;
+  height: 24px;
+  position: relative;
 
   label {
     position: absolute;
-    width: 100px;
-    height: 46px;
-    background-color: ${(props) => (props.isDark ? "#28292c" : "white")};
-    border-radius: 50px;
+    width: 50px;
+    height: 24px;
+    background-color: ${(props) => (props.isDark ? "#28292c" : "#cbcbc9")};
+    border-radius: 28px;
     cursor: pointer;
     border: none;
+
     input {
       position: absolute;
       display: none;
@@ -28,32 +30,31 @@ const ToggleWrapper = styled.div<IToggle>`
       position: absolute;
       width: 100%;
       height: 100%;
-      border-radius: 50px;
+      border-radius: 28px;
       transition: 0.3s;
       border: none;
     }
 
     input:checked ~ .slider {
-      background-color: white;
+      background-color: #cbcbc9;
     }
 
     .slider::before {
       content: "";
       position: absolute;
-      top: 8px;
+      top: 4px;
       left: 10px;
-      width: 30px;
-      height: 30px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
-      box-shadow: inset 12px -2px 0px 0px white;
+      box-shadow: inset 6px -2px 0px 0px white;
       background-color: #28292c;
-
       transition: 0.3s;
     }
 
     input:checked ~ .slider::before {
-      transform: translateX(50px);
-      background-color: #28292c;
+      transform: translateX(20px);
+      background-color: white;
       box-shadow: none;
     }
   }

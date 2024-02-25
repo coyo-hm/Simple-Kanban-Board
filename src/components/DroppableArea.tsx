@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   DragDropContext,
@@ -10,56 +10,26 @@ import { useRecoilState } from "recoil";
 import { IToDoState, toDoState } from "../atoms";
 import styled from "styled-components";
 import { CONSTANT } from "../helpers/constant";
-import { Container, Boards, BoardContainer } from "../style";
+import Container from "./Container";
 import DraggableBoard from "./DraggableBoard";
-import IconPlusWhite from "../images/Icon_plus_white.png";
-import IconPlusSkyblue from "../images/Icon_plus_skyblue.png";
+import { Boards, BoardContainer } from "../style";
 import IconBinClosed from "../images/Icon_bin_closed.png";
 import IconBinOpened from "../images/Icon_bin_opened.png";
+import Button from "./Button";
 
-const CreateBoard = styled.form`
-  width: 100%;
-  text-align: center;
-  height: 100%;
-  position: relative;
-
-  input {
-    padding: 10px;
-    margin-bottom: 20px;
-    border: none;
-    outline: none;
-    width: 100%;
-    border-radius: 5px 5px 0 0;
-  }
-
-  button {
-    position: absolute;
-    bottom: calc(50% - 25px);
-    left: calc(50% - 25px);
-    background: url(${IconPlusWhite}) no-repeat center/50px;
-    width: 50px;
-    height: 50px;
-    border: none;
-
-    &:hover {
-      background: url(${IconPlusSkyblue}) no-repeat center/50px;
-    }
-  }
-`;
-
-const DeleteBtn = styled.button`
-  background: url(${IconBinClosed}) no-repeat center/50px;
-  width: 75px;
-  height: 75px;
+const DeleteButton = styled(Button)`
+  background: transparent url(${IconBinClosed}) no-repeat center/50px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   border: none;
-  position: absolute;
-  bottom: calc(50% - 250px);
-  left: calc(50% - 25px);
+  margin: 30px auto;
+  padding: 0 0 0 50px;
+  //position: absolute;
+  //bottom: calc(50% - 250px);
 
   &:hover {
-    background: ${(prop) => prop.theme.hoverColor} url(${IconBinOpened})
-      no-repeat center/50px;
+    background: rgba(255, 0, 0, 0.2) url(${IconBinOpened}) no-repeat center/50px;
   }
 `;
 
@@ -75,7 +45,7 @@ function DroppableArea() {
 
   useEffect(() => {
     let savedTodo: IToDoState[] = JSON.parse(
-      localStorage.getItem("TODOS") || "[]"
+      localStorage.getItem("TODOS") || "[]",
     );
     setToDos(savedTodo);
   }, []);
@@ -108,7 +78,7 @@ function DroppableArea() {
         //같은 보드 내에서 움직일때
         setToDos((allBoards) => {
           const boardCopy = allBoards.find(
-            (board) => board.id === source.droppableId
+            (board) => board.id === source.droppableId,
           );
           if (!boardCopy?.list) return allBoards;
           const cardList = [...boardCopy?.list];
@@ -120,7 +90,7 @@ function DroppableArea() {
           const newBoards = allBoards.map((board) =>
             board.id === source.droppableId
               ? { id: source.droppableId, list: cardList }
-              : board
+              : board,
           );
           return newBoards;
         });
@@ -128,10 +98,10 @@ function DroppableArea() {
         //보드를 건너서 움직일때
         setToDos((allBoards) => {
           const sourceBoard = allBoards.find(
-            (board) => board.id === source.droppableId
+            (board) => board.id === source.droppableId,
           );
           const destinationBoard = allBoards.find(
-            (board) => board.id === destination.droppableId
+            (board) => board.id === destination.droppableId,
           );
           if (!sourceBoard?.list || !destinationBoard?.list) return allBoards;
 
@@ -181,7 +151,7 @@ function DroppableArea() {
       const newList = [...targetBoard?.list];
       newList.splice(cardId, 1);
       const newBoards = allBoards.map((board) =>
-        board.id === boardId ? { id: boardId, list: newList } : board
+        board.id === boardId ? { id: boardId, list: newList } : board,
       );
       return newBoards;
     });
@@ -206,12 +176,6 @@ function DroppableArea() {
         >
           {(provided) => (
             <Boards {...provided.droppableProps} ref={provided.innerRef}>
-              <BoardContainer style={{ padding: "0" }}>
-                <CreateBoard onSubmit={handleSubmit(createBoard)}>
-                  <input {...register("boardId", { required: true })} />
-                  <button type="submit" />
-                </CreateBoard>
-              </BoardContainer>
               {toDos.map((board, idx) => (
                 <DraggableBoard
                   idx={idx}
@@ -226,7 +190,10 @@ function DroppableArea() {
         </Droppable>
         <Droppable droppableId={CONSTANT.DROP_TYPE.DELETE}>
           {(provided) => (
-            <DeleteBtn {...provided.droppableProps} ref={provided.innerRef} />
+            <DeleteButton
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            />
           )}
         </Droppable>
       </Container>

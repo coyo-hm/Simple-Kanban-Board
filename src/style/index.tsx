@@ -1,23 +1,11 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  background-color: ${(prop) => prop.theme.bgColor};
-  display: flex;
-  max-width: 680px;
-  width: 100%;
-  margin: 100px auto;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-`;
-
 export const Boards = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: nowrap;
   overflow-y: hidden;
   overflow-x: auto;
-  padding-bottom: 20px;
 
   &::-webkit-scrollbar {
     width: 10px;

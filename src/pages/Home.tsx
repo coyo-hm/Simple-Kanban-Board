@@ -1,45 +1,55 @@
+import React from "react";
 import { Helmet } from "react-helmet";
 import styled from "styled-components";
-import ToggleTheme from "../theme/ToggleTheme";
+import ToggleTheme from "../components/ToggleTheme";
 import DroppableArea from "../components/DroppableArea";
+import Toolbar from "../components/Toolbar";
+import ModalProvider from "../contexts/ModalContext";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  min-width: 550px;
+  row-gap: 10px;
+  justify-content: stretch;
+  align-items: flex-start;
 `;
 
 const Header = styled.header`
-  height: 100px;
+  height: 45px;
   width: 100%;
-  background-color: ${(prop) => prop.theme.boardColor};
-  color: ${(prop) => prop.theme.bgColor};
+  background-color: transparent;
+  color: ${(prop) => prop.theme.textColor};
   font-weight: 800;
-  font-size: 48px;
-  line-height: 100px;
-  padding: 0 20px;
-  position: relative;
+  font-size: 18px;
+  line-height: 45px;
+  padding: 0 10px 0 15px;
+  display: flex;
+  align-items: center;
 `;
 
 const Subtitle = styled.span`
-  @media screen and (max-width: 970px) {
-    & {
-      visibility: hidden;
-    }
-  }
+  flex-grow: 1;
+  //@media screen and (max-width: 970px) {
+  //  & {
+  //    visibility: hidden;
+  //  }
+  //}
 `;
 
 export default function Home() {
   return (
     <Container>
-      <Helmet>
-        <title>SIMPLE KANBAN BOARD</title>
-      </Helmet>
-      <Header>
-        📖 KANBAN BOARD <Subtitle>: Make a simple note</Subtitle>
-        <ToggleTheme />
-      </Header>
-      <DroppableArea />
+      <ModalProvider>
+        <Helmet>
+          <title>SIMPLE KANBAN BOARD</title>
+        </Helmet>
+        <Header>
+          📖 KANBAN BOARD <Subtitle>: Make a simple board</Subtitle>
+          <ToggleTheme />
+        </Header>
+        <Toolbar />
+        <DroppableArea />
+      </ModalProvider>
     </Container>
   );
 }

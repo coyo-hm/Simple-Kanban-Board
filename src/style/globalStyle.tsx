@@ -45,6 +45,7 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0;
         background: ${(props) => props.theme.bgColor};
         color: ${(props) => props.theme.textColor};
+        overflow: hidden;
     }
 
     menu, ol, ul {
@@ -73,5 +74,15 @@ export const GlobalStyle = createGlobalStyle`
 
     * {
         box-sizing: border-box;
+
+        &::-webkit-scrollbar {
+            width: 10px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: rgb(0, 0, 0);
+        }
+        &::-webkit-scrollbar-track {
+            background: rgb(0, 0, 0, 0.3);
+        }
     }
 `;
