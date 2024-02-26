@@ -15,7 +15,8 @@ import DraggableBoard from "./DraggableBoard";
 import { Boards, BoardContainer } from "../style";
 import IconBinClosed from "../images/Icon_bin_closed.png";
 import IconBinOpened from "../images/Icon_bin_opened.png";
-import Button from "./Button";
+import Button from "./Button/Button";
+import BoardListContainer from "./BoardListContainer";
 
 const DeleteButton = styled(Button)`
   background: transparent url(${IconBinClosed}) no-repeat center/50px;
@@ -168,7 +169,7 @@ function DroppableArea() {
 
   return (
     <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
-      <Container>
+      <BoardListContainer>
         <Droppable
           droppableId={CONSTANT.DROP_TYPE.BOARD}
           isDropDisabled={isBoardDropDisabled}
@@ -196,7 +197,7 @@ function DroppableArea() {
             />
           )}
         </Droppable>
-      </Container>
+      </BoardListContainer>
     </DragDropContext>
   );
 }

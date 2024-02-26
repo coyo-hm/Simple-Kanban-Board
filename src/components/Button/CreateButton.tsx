@@ -1,23 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import Button from "./Button";
-import useModal from "../hooks/useModal";
-import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
-import { toDoState } from "../atoms";
-
-const CreateButtonContainer = styled(Button)`
-  display: flex;
-  align-items: center;
-  column-gap: 7px;
-  padding: 3px 15px;
-  font-size: 14px;
-  border-radius: 32px;
-
-  span {
-    font-size: 16px;
-  }
-`;
+import { useForm } from "react-hook-form";
+import { toDoState } from "../../atoms";
+import useModal from "../../hooks/useModal";
+import Button from "./Button";
+import ToolbarButton from "./ToolbarButton";
 
 const CreateForm = styled.form`
   display: flex;
@@ -74,7 +62,7 @@ interface IForm {
   boardId: string;
 }
 
-const CreateButton = () => {
+export default function CreateButton() {
   const { setModal } = useModal();
   const { register, setValue, handleSubmit } = useForm<IForm>();
 
@@ -112,10 +100,8 @@ const CreateButton = () => {
     );
   };
   return (
-    <CreateButtonContainer onClick={openCreateModal}>
+    <ToolbarButton onClick={openCreateModal}>
       <span>+</span>보드 추가하기
-    </CreateButtonContainer>
+    </ToolbarButton>
   );
-};
-
-export default CreateButton;
+}

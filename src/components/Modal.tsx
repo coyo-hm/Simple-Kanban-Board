@@ -1,6 +1,6 @@
 import React, { forwardRef, ReactNode } from "react";
 import styled from "styled-components";
-import Button from "./Button";
+import Button from "./Button/Button";
 import useModal from "../hooks/useModal";
 
 const ModalContainer = styled.dialog`
