@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import CreateButton from "./Button/CreateButton";
-import ResetButton from "./Button/ResetButton";
+import CreateButton from "../Button/CreateButton";
+import ResetButton from "../Button/ResetButton";
 
 const ToolbarContainer = styled.div`
   display: flex;

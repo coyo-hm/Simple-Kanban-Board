@@ -1,6 +1,6 @@
 import React from "react";
 import { useSetRecoilState } from "recoil";
-import { toDoState } from "../../atoms";
+import { toDoState } from "../../stores";
 import ToolbarButton from "./ToolbarButton";
 import { ReactComponent as IconReset } from "../../images/reset.svg";
 

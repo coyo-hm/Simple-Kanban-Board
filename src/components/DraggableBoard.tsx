@@ -1,49 +1,13 @@
+import React from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { IToDoState, toDoState } from "../atoms";
-import { BoardContainer } from "../style";
+import { IToDoState, toDoState } from "../stores";
 import DraggableCard from "./DraggableCard";
-
-const Title = styled.h1`
-  text-align: center;
-  padding-bottom: 15px;
-  font-weight: 700;
-  color: ${(prop) => prop.theme.boardTitleColor};
-  font-size: 24px;
-`;
-
-interface IAreaProps {
-  isDraggingOver: boolean;
-  isDraggingFromThis: boolean;
-}
-
-const Area = styled.div<IAreaProps>`
-  background-color: ${(props) =>
-    props.isDraggingOver
-      ? "#95afc0"
-      : props.isDraggingFromThis
-      ? "#f9ca24"
-      : ""};
-  flex-grow: 1;
-  transition: background-color 0.3s ease-in-out;
-  padding: 10px;
-`;
-
-const Form = styled.form`
-  width: 100%;
-
-  input {
-    width: 100%;
-    border: none;
-    padding: 10px;
-    outline: none;
-  }
-
-  button {
-  }
-`;
+import BoardContainer, { CardListContainer } from "./BoardContainer";
+import EditButton from "./Button/EditButton";
+import CreateCardForm from "./CreateCardForm";
 
 interface IBoardProps {
   board: IToDoState;
@@ -55,7 +19,11 @@ interface IForm {
   toDo: string;
 }
 
-function DraggableBoard({ board, idx, dropDisable }: IBoardProps) {
+export default function DraggableBoard({
+  board,
+  idx,
+  dropDisable,
+}: IBoardProps) {
   const setToDos = useSetRecoilState(toDoState);
   const { register, setValue, handleSubmit } = useForm<IForm>();
 
@@ -68,7 +36,7 @@ function DraggableBoard({ board, idx, dropDisable }: IBoardProps) {
     setToDos((allBoards) => {
       let newBoard = allBoards.map((todo) => {
         return todo.id === board.id
-          ? { id: board.id, list: [...todo.list, newTodo] }
+          ? { ...board, list: [...todo.list, newTodo] }
           : todo;
       });
       return newBoard;
@@ -80,23 +48,31 @@ function DraggableBoard({ board, idx, dropDisable }: IBoardProps) {
     <Draggable draggableId={board.id} index={idx}>
       {(provided) => (
         <BoardContainer
+          backgroundColor={board.backgroundColor}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <Title>{board.id}</Title>
-          <Form onSubmit={handleSubmit(onValid)}>
+          <header>
+            <h1 className={"title"}>{board.id}</h1>
+            <EditButton
+              boardId={board.id}
+              backgroundColor={board.backgroundColor}
+            />
+          </header>
+          <CreateCardForm onSubmit={handleSubmit(onValid)}>
             <input
               {...register("toDo", { required: true })}
               type={"text"}
-              placeholder={`Add task on ${board.id}`}
+              placeholder={`${board.id} 에 카드 추가하기`}
             />
-          </Form>
+          </CreateCardForm>
           <Droppable droppableId={board.id} isDropDisabled={dropDisable}>
             {(provided, snapshot) => (
-              <Area
+              <CardListContainer
                 isDraggingOver={snapshot.isDraggingOver}
                 isDraggingFromThis={Boolean(snapshot.draggingFromThisWith)}
+                backgroundColor={board.backgroundColor}
                 ref={provided.innerRef}
                 {...provided.droppableProps}
               >
@@ -107,11 +83,12 @@ function DraggableBoard({ board, idx, dropDisable }: IBoardProps) {
                       idx={idx}
                       toDoId={toDo.id}
                       toDoText={toDo.text}
+                      backgroundColor={board.backgroundColor}
                     />
                   );
                 })}
                 {provided.placeholder}
-              </Area>
+              </CardListContainer>
             )}
           </Droppable>
         </BoardContainer>
@@ -119,5 +96,3 @@ function DraggableBoard({ board, idx, dropDisable }: IBoardProps) {
     </Draggable>
   );
 }
-
-export default DraggableBoard;

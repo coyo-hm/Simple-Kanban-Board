@@ -7,19 +7,19 @@ import {
   DropResult,
 } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
-import { IToDoState, toDoState } from "../atoms";
+import { IToDoState, toDoState } from "../stores";
 import { CONSTANT } from "../helpers/constant";
 import DraggableBoard from "./DraggableBoard";
-import { Boards } from "../style";
-import BoardListContainer from "./BoardListContainer";
+import DroppableAreaContainer from "./DroppableAreaContainer";
 import DeleteButton from "./Button/DeleteButton";
 import EmptyMessage from "./EmptyMessage";
+import BoardListContainer from "./BoardListContainer";
 
 interface IForm {
   boardId: string;
 }
 
-function DroppableArea() {
+export default function DroppableArea() {
   const [toDos, setToDos] = useRecoilState(toDoState);
   const { register, setValue, handleSubmit } = useForm<IForm>();
   const [isBoardDropDisabled, setIsBoardDropDisabled] = useState(false);
@@ -36,6 +36,22 @@ function DroppableArea() {
     localStorage.setItem("TODOS", JSON.stringify(toDos));
   }, [toDos]);
 
+  const deleteCard = (boardId: string, cardId: number) => {
+    setToDos((allBoards) => {
+      const targetBoard = allBoards.find((board) => board.id === boardId);
+      if (!targetBoard?.list) return allBoards;
+      const newList = [...targetBoard?.list];
+      newList.splice(cardId, 1);
+      const newBoards = allBoards.map((board) =>
+        board.id === boardId ? { ...targetBoard, list: newList } : board,
+      );
+      return newBoards;
+    });
+  };
+
+  const deleteBoard = (boardId: string) => {
+    setToDos((allBoards) => allBoards.filter((board) => board.id !== boardId));
+  };
   const onDragEnd = (info: DropResult) => {
     console.log(info);
     const { destination, draggableId, source, type } = info;
@@ -71,7 +87,7 @@ function DroppableArea() {
 
           const newBoards = allBoards.map((board) =>
             board.id === source.droppableId
-              ? { id: source.droppableId, list: cardList }
+              ? { ...boardCopy, list: cardList }
               : board,
           );
           return newBoards;
@@ -96,12 +112,12 @@ function DroppableArea() {
           const newBoards = allBoards.map((board) => {
             if (board.id === source.droppableId) {
               return {
-                id: board.id,
+                ...sourceBoard,
                 list: newSourceBoard,
               };
             } else if (board.id === destination.droppableId) {
               return {
-                id: board.id,
+                ...destinationBoard,
                 list: newDestinationBoard,
               };
             } else return board;
@@ -112,37 +128,6 @@ function DroppableArea() {
       }
     }
   };
-
-  const createBoard = ({ boardId }: IForm) => {
-    setToDos((prevToDos) => {
-      return [
-        ...prevToDos,
-        {
-          id: boardId,
-          list: [],
-        },
-      ];
-    });
-    setValue("boardId", "");
-  };
-
-  const deleteCard = (boardId: string, cardId: number) => {
-    setToDos((allBoards) => {
-      const targetBoard = allBoards.find((board) => board.id === boardId);
-      if (!targetBoard?.list) return allBoards;
-      const newList = [...targetBoard?.list];
-      newList.splice(cardId, 1);
-      const newBoards = allBoards.map((board) =>
-        board.id === boardId ? { id: boardId, list: newList } : board,
-      );
-      return newBoards;
-    });
-  };
-
-  const deleteBoard = (boardId: string) => {
-    setToDos((allBoards) => allBoards.filter((board) => board.id !== boardId));
-  };
-
   const onDragStart = ({ source }: DragStart) => {
     setIsBoardDropDisabled(source.droppableId !== CONSTANT.DROP_TYPE.BOARD);
     setIsCardDropDisabled(source.droppableId === CONSTANT.DROP_TYPE.BOARD);
@@ -150,7 +135,7 @@ function DroppableArea() {
 
   return (
     <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
-      <BoardListContainer>
+      <DroppableAreaContainer>
         {toDos.length === 0 && <EmptyMessage />}
         <Droppable
           droppableId={CONSTANT.DROP_TYPE.BOARD}
@@ -158,7 +143,10 @@ function DroppableArea() {
           direction={"horizontal"}
         >
           {(provided) => (
-            <Boards {...provided.droppableProps} ref={provided.innerRef}>
+            <BoardListContainer
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
               {toDos.map((board, idx) => (
                 <DraggableBoard
                   idx={idx}
@@ -168,7 +156,7 @@ function DroppableArea() {
                 />
               ))}
               {provided.placeholder}
-            </Boards>
+            </BoardListContainer>
           )}
         </Droppable>
         <Droppable droppableId={CONSTANT.DROP_TYPE.DELETE}>
@@ -179,9 +167,7 @@ function DroppableArea() {
             />
           )}
         </Droppable>
-      </BoardListContainer>
+      </DroppableAreaContainer>
     </DragDropContext>
   );
 }
-
-export default DroppableArea;

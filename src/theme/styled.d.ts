@@ -2,11 +2,9 @@ import "styled-components";
 
 declare module "styled-components" {
   export interface DefaultTheme {
+    key: string;
     bgColor: string;
     textColor: string;
-    cardColor: string;
-    boardColor: string;
-    boardTitleColor: string;
     hoverColor: string;
     buttonHoverColor: string;
     blue: string;
@@ -19,6 +17,10 @@ declare module "styled-components" {
     modal: {
       dimColor: string;
       bgColor: string;
+    };
+    board: {
+      textColor: string;
+      bgOpacity: string;
     };
   }
 }

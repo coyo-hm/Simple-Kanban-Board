@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 import styled from "styled-components";
-import Modal from "../components/Modal";
+import Modal from "../components/Modal/Modal";
 
 const Dim = styled.div`
   position: fixed;

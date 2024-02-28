@@ -1,14 +1,22 @@
 import styled from "styled-components";
 
 const BoardListContainer = styled.div`
-  background-color: ${(prop) => prop.theme.bgColor};
   width: 100%;
-  height: 100%;
-  padding: 30px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-wrap: nowrap;
+  gap: 10px;
+  overflow-y: hidden;
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgb(0, 0, 0);
+  }
+  &::-webkit-scrollbar-track {
+    background: rgb(0, 0, 0, 0.3);
+  }
 `;
 
 export default BoardListContainer;

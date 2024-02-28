@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ToggleTheme from "./ToggleTheme";
+import ToggleTheme from "../ToggleTheme";
 import React from "react";
 
 const HeaderContainer = styled.header`
