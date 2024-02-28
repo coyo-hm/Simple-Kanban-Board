@@ -2,37 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   DragDropContext,
-  DropResult,
-  Droppable,
   DragStart,
+  Droppable,
+  DropResult,
 } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import { IToDoState, toDoState } from "../atoms";
-import styled from "styled-components";
 import { CONSTANT } from "../helpers/constant";
-import Container from "./Container";
 import DraggableBoard from "./DraggableBoard";
-import { Boards, BoardContainer } from "../style";
-import IconBinClosed from "../images/Icon_bin_closed.png";
-import IconBinOpened from "../images/Icon_bin_opened.png";
-import Button from "./Button/Button";
+import { Boards } from "../style";
 import BoardListContainer from "./BoardListContainer";
-
-const DeleteButton = styled(Button)`
-  background: transparent url(${IconBinClosed}) no-repeat center/50px;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: none;
-  margin: 30px auto;
-  padding: 0 0 0 50px;
-  //position: absolute;
-  //bottom: calc(50% - 250px);
-
-  &:hover {
-    background: rgba(255, 0, 0, 0.2) url(${IconBinOpened}) no-repeat center/50px;
-  }
-`;
+import DeleteButton from "./Button/DeleteButton";
+import EmptyMessage from "./EmptyMessage";
 
 interface IForm {
   boardId: string;
@@ -170,6 +151,7 @@ function DroppableArea() {
   return (
     <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
       <BoardListContainer>
+        {toDos.length === 0 && <EmptyMessage />}
         <Droppable
           droppableId={CONSTANT.DROP_TYPE.BOARD}
           isDropDisabled={isBoardDropDisabled}

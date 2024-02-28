@@ -10,6 +10,7 @@ declare module "styled-components" {
     hoverColor: string;
     buttonHoverColor: string;
     blue: string;
+    boxColor: string;
     form: {
       label: string;
       inputBgHover: string;

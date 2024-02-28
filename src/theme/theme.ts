@@ -8,6 +8,7 @@ export const darkTheme: DefaultTheme = {
   boardTitleColor: "black",
   hoverColor: "#DADFE9",
   buttonHoverColor: "rgba(255, 255, 255, 0.055)",
+  boxColor: "rgba(32,32,32,255)",
   blue: "rgb(35, 131, 226)",
   form: {
     label: "#898989",
@@ -28,6 +29,7 @@ export const lightTheme: DefaultTheme = {
   hoverColor: "#181a1d",
   buttonHoverColor: "rgba(55, 53, 47, 0.08)",
   blue: "rgb(35, 131, 226)",
+  boxColor: "rgba(251,251,250,255)",
   form: {
     label: "#83827f",
     inputBgHover: "#f1f1f0",
