@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 
 const EmptyMessageContainer = styled.div`
@@ -9,6 +9,12 @@ const EmptyMessageContainer = styled.div`
   border-radius: 10px;
 `;
 
-export default function EmptyMessage() {
-  return <EmptyMessageContainer>생성된 보드가 없습니다.</EmptyMessageContainer>;
+interface Props {
+  label: ReactNode;
+}
+
+export default function EmptyMessage({ label }: Props) {
+  return (
+    <EmptyMessageContainer>생성된 {label}가 없습니다.</EmptyMessageContainer>
+  );
 }
