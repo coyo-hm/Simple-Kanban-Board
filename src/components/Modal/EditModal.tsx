@@ -201,7 +201,6 @@ export default function EditModal({ selectedBoardId }: Props) {
             </Droppable>
           </DragDropContext>
         )}
-
         <SaveButton type="submit">저장</SaveButton>
       </EditForm>
     </>
