@@ -7,6 +7,7 @@ const EmptyMessageContainer = styled.div`
   width: 100%;
   text-align: center;
   border-radius: 10px;
+  color: ${(props) => props.theme.textColor};
 `;
 
 interface Props {

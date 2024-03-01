@@ -53,7 +53,6 @@ export default function DroppableArea() {
     setToDos((allBoards) => allBoards.filter((board) => board.id !== boardId));
   };
   const onDragEnd = (info: DropResult) => {
-    console.log(info);
     const { destination, draggableId, source, type } = info;
     if (!destination) return;
 
@@ -136,7 +135,7 @@ export default function DroppableArea() {
   return (
     <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
       <DroppableAreaContainer>
-        {toDos.length === 0 && <EmptyMessage />}
+        {toDos.length === 0 && <EmptyMessage label={"보드"} />}
         <Droppable
           droppableId={CONSTANT.DROP_TYPE.BOARD}
           isDropDisabled={isBoardDropDisabled}

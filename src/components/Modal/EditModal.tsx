@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import useModal from "../../hooks/useModal";
-import { colorChartState, IToDoState, toDoState } from "../../stores";
+import { colorChartState, IToDo, IToDoState, toDoState } from "../../stores";
 import SaveButton from "../Button/SaveButton";
-import { DragDropContext } from "react-beautiful-dnd";
+import {
+  DragDropContext,
+  DragStart,
+  Droppable,
+  DropResult,
+} from "react-beautiful-dnd";
+import DraggableCard from "../DraggableCard";
+import { CONSTANT } from "../../helpers/constant";
+import EmptyMessage from "../EmptyMessage";
 
 const EditForm = styled.form`
   display: flex;
@@ -22,7 +30,7 @@ const EditForm = styled.form`
     height: 1px;
   }
 
-  & > div {
+  .input {
     width: 100%;
     display: grid;
     grid-template-columns: minmax(50px, 20%) 1fr;
@@ -81,6 +89,13 @@ const ColorChip = styled.input<{ bgColor: string }>`
   }
 `;
 
+const CardListContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
 interface Props {
   selectedBoardId?: string;
 }
@@ -94,7 +109,7 @@ export default function EditModal({ selectedBoardId }: Props) {
   const { setModal } = useModal();
   const [toDos, setToDos] = useRecoilState(toDoState);
   const [colorChart, setColorChart] = useRecoilState(colorChartState);
-  const { register, setValue, handleSubmit } = useForm<IFormInput>({
+  const { register, getValues, setValue, handleSubmit } = useForm<IFormInput>({
     defaultValues: isUpdateMode
       ? {
           boardId: selectedBoardId,
@@ -120,11 +135,21 @@ export default function EditModal({ selectedBoardId }: Props) {
     setModal(null);
   };
 
+  const onDragStart = ({ source }: DragStart) => {};
+  const onDragEnd = ({ destination, source }: DropResult) => {
+    if (!destination) return;
+    const cardList = [...getValues("list")];
+    const targetCard = cardList[source.index];
+    cardList.splice(source.index, 1);
+    cardList.splice(destination.index, 0, targetCard);
+    setValue("list", cardList);
+  };
+
   return (
     <>
       <h1>{isUpdateMode ? "보드 편집하기" : "보드 추가하기"}</h1>
       <EditForm onSubmit={handleSubmit(onSubmit)}>
-        <div>
+        <div className={"input"}>
           <label htmlFor={"boardId"}>보드 이름</label>
           <input
             id={"boardId"}
@@ -132,7 +157,7 @@ export default function EditModal({ selectedBoardId }: Props) {
             {...register("boardId", { required: true })}
           />
         </div>
-        <div>
+        <div className={"input"}>
           <label htmlFor={"backgroundColor"}>보드 색상</label>
           <ColorChipContainer>
             {colorChart.map((color) => (
@@ -149,7 +174,34 @@ export default function EditModal({ selectedBoardId }: Props) {
           </ColorChipContainer>
         </div>
         <div className={"divider"} />
-        {/*<DragDropContext></DragDropContext>*/}
+        {getValues("list").length === 0 ? (
+          <EmptyMessage label={"카드"} />
+        ) : (
+          <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
+            <Droppable droppableId={"card"}>
+              {(provided, snapshot) => (
+                <CardListContainer
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  {getValues("list").map((toDo, idx) => {
+                    return (
+                      <DraggableCard
+                        key={toDo.id}
+                        idx={idx}
+                        toDoId={toDo.id}
+                        toDoText={toDo.text}
+                        backgroundColor={getValues("backgroundColor")}
+                      />
+                    );
+                  })}
+                  {provided.placeholder}
+                </CardListContainer>
+              )}
+            </Droppable>
+          </DragDropContext>
+        )}
+
         <SaveButton type="submit">저장</SaveButton>
       </EditForm>
     </>
