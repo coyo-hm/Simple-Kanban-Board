@@ -1,22 +1,18 @@
 import React from "react";
-import { Droppable, Draggable } from "react-beautiful-dnd";
-import { useForm } from "react-hook-form";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 import { useSetRecoilState } from "recoil";
-import styled from "styled-components";
+import { useForm } from "react-hook-form";
 import { IToDoState, toDoState } from "../stores";
+import { CardForm } from "../types/card";
 import DraggableCard from "./DraggableCard";
 import BoardContainer, { CardListContainer } from "./BoardContainer";
 import EditButton from "./Button/EditButton";
-import CreateCardForm from "./CreateCardForm";
+import Input from "./Input";
 
 interface IBoardProps {
   board: IToDoState;
   idx: number;
   dropDisable: boolean;
-}
-
-interface IForm {
-  toDo: string;
 }
 
 export default function DraggableBoard({
@@ -25,23 +21,20 @@ export default function DraggableBoard({
   dropDisable,
 }: IBoardProps) {
   const setToDos = useSetRecoilState(toDoState);
-  const { register, setValue, handleSubmit } = useForm<IForm>();
-
-  const onValid = ({ toDo }: IForm) => {
+  const { register, setValue, handleSubmit } = useForm<CardForm>();
+  const onSubmit = ({ toDo }: CardForm) => {
     const newTodo = {
       id: Date.now(),
       text: toDo,
     };
 
-    setToDos((allBoards) => {
-      let newBoard = allBoards.map((todo) => {
-        return todo.id === board.id
+    setToDos((allBoards) =>
+      allBoards.map((todo) =>
+        todo.id === board.id
           ? { ...board, list: [...todo.list, newTodo] }
-          : todo;
-      });
-      return newBoard;
-    });
-    setValue("toDo", "");
+          : todo,
+      ),
+    );
   };
 
   return (
@@ -60,13 +53,13 @@ export default function DraggableBoard({
               backgroundColor={board.backgroundColor}
             />
           </header>
-          <CreateCardForm onSubmit={handleSubmit(onValid)}>
-            <input
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Input
               {...register("toDo", { required: true })}
               type={"text"}
-              placeholder={`${board.id} 에 카드 추가하기`}
+              placeholder={`카드 추가하기`}
             />
-          </CreateCardForm>
+          </form>
           <Droppable droppableId={board.id} isDropDisabled={dropDisable}>
             {(provided, snapshot) => (
               <CardListContainer
@@ -76,17 +69,15 @@ export default function DraggableBoard({
                 ref={provided.innerRef}
                 {...provided.droppableProps}
               >
-                {board.list.map((toDo, idx) => {
-                  return (
-                    <DraggableCard
-                      key={toDo.id}
-                      idx={idx}
-                      toDoId={toDo.id}
-                      toDoText={toDo.text}
-                      backgroundColor={board.backgroundColor}
-                    />
-                  );
-                })}
+                {board.list.map((toDo, idx) => (
+                  <DraggableCard
+                    key={toDo.id}
+                    idx={idx}
+                    toDoId={toDo.id}
+                    toDoText={toDo.text}
+                    backgroundColor={board.backgroundColor}
+                  />
+                ))}
                 {provided.placeholder}
               </CardListContainer>
             )}

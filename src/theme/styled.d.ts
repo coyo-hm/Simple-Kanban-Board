@@ -9,10 +9,11 @@ declare module "styled-components" {
     buttonHoverColor: string;
     blue: string;
     boxColor: string;
-    form: {
+    input: {
       label: string;
-      inputBgHover: string;
-      // input: string;
+      boxShadow: string;
+      bgHover: string;
+      bgFocus: string;
     };
     modal: {
       dimColor: string;

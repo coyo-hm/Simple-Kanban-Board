@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import {
   DragDropContext,
   DragStart,
@@ -15,13 +14,8 @@ import DeleteButton from "./Button/DeleteButton";
 import EmptyMessage from "./EmptyMessage";
 import BoardListContainer from "./BoardListContainer";
 
-interface IForm {
-  boardId: string;
-}
-
 export default function DroppableArea() {
   const [toDos, setToDos] = useRecoilState(toDoState);
-  const { register, setValue, handleSubmit } = useForm<IForm>();
   const [isBoardDropDisabled, setIsBoardDropDisabled] = useState(false);
   const [isCardDropDisabled, setIsCardDropDisabled] = useState(false);
 

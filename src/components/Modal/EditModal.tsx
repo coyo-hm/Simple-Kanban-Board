@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { KeyboardEvent, useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import useModal from "../../hooks/useModal";
-import { colorChartState, IToDo, IToDoState, toDoState } from "../../stores";
+import { colorChartState, IToDoState, toDoState } from "../../stores";
 import SaveButton from "../Button/SaveButton";
 import {
   DragDropContext,
@@ -12,8 +12,8 @@ import {
   DropResult,
 } from "react-beautiful-dnd";
 import DraggableCard from "../DraggableCard";
-import { CONSTANT } from "../../helpers/constant";
 import EmptyMessage from "../EmptyMessage";
+import Input from "../Input";
 
 const EditForm = styled.form`
   display: flex;
@@ -25,7 +25,7 @@ const EditForm = styled.form`
   padding: 30px 0 0;
 
   & > div.divider {
-    background-color: ${(prop) => prop.theme.form.label};
+    background-color: ${(prop) => prop.theme.input.label};
     width: 100%;
     height: 1px;
   }
@@ -39,23 +39,9 @@ const EditForm = styled.form`
   }
 
   label {
-    color: ${(prop) => prop.theme.form.label};
+    color: ${(prop) => prop.theme.input.label};
     padding: 0 10px 0 0;
     font-size: 16px;
-  }
-
-  input[type="text"] {
-    background-color: transparent;
-    border: none;
-    padding: 10px;
-    font-size: 16px;
-    color: ${(prop) => prop.theme.form.label};
-    outline: none;
-  }
-
-  input[type="text"]:hover,
-  input[type="text"]:focus {
-    background-color: ${(prop) => prop.theme.form.inputBgHover};
   }
 `;
 
@@ -121,6 +107,8 @@ export default function EditModal({ selectedBoardId }: Props) {
       : { boardId: "", backgroundColor: colorChart[0], list: [] },
   });
 
+  const [toDo, setToDo] = useState("");
+
   const onSubmit = ({ boardId, ...rest }: IFormInput) => {
     if (!!selectedBoardId) {
       setToDos((prevToDos) =>
@@ -133,6 +121,18 @@ export default function EditModal({ selectedBoardId }: Props) {
     }
 
     setModal(null);
+  };
+
+  const addCard = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== "Enter") return;
+    e.preventDefault();
+    const newTodo = {
+      id: Date.now(),
+      text: toDo,
+    };
+    const cardList = [...getValues("list")];
+    setValue("list", [...cardList, newTodo]);
+    setToDo("");
   };
 
   const onDragStart = ({ source }: DragStart) => {};
@@ -151,9 +151,9 @@ export default function EditModal({ selectedBoardId }: Props) {
       <EditForm onSubmit={handleSubmit(onSubmit)}>
         <div className={"input"}>
           <label htmlFor={"boardId"}>보드 이름</label>
-          <input
+          <Input
             id={"boardId"}
-            type={"text"}
+            type={"te0xt"}
             {...register("boardId", { required: true })}
           />
         </div>
@@ -174,6 +174,12 @@ export default function EditModal({ selectedBoardId }: Props) {
           </ColorChipContainer>
         </div>
         <div className={"divider"} />
+        <Input
+          placeholder={`카드 추가하기`}
+          value={toDo}
+          onChange={(e) => setToDo(e.target.value)}
+          onKeyDown={addCard}
+        />
         {getValues("list").length === 0 ? (
           <EmptyMessage label={"카드"} />
         ) : (
@@ -184,17 +190,15 @@ export default function EditModal({ selectedBoardId }: Props) {
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
-                  {getValues("list").map((toDo, idx) => {
-                    return (
-                      <DraggableCard
-                        key={toDo.id}
-                        idx={idx}
-                        toDoId={toDo.id}
-                        toDoText={toDo.text}
-                        backgroundColor={getValues("backgroundColor")}
-                      />
-                    );
-                  })}
+                  {getValues("list").map((toDo, idx) => (
+                    <DraggableCard
+                      key={toDo.id}
+                      idx={idx}
+                      toDoId={toDo.id}
+                      toDoText={toDo.text}
+                      backgroundColor={getValues("backgroundColor")}
+                    />
+                  ))}
                   {provided.placeholder}
                 </CardListContainer>
               )}

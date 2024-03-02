@@ -42,6 +42,7 @@ export const CardListContainer = styled.div<{
   display: flex;
   flex-direction: column;
   gap: 5px;
+  margin: 10px 0 0;
 `;
 
 export default BoardContainer;

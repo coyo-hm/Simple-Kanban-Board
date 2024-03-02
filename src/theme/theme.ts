@@ -8,9 +8,11 @@ export const darkTheme: DefaultTheme = {
   buttonHoverColor: "rgba(255, 255, 255, 0.055)",
   boxColor: "rgba(32,32,32,255)",
   blue: "rgb(35, 131, 226)",
-  form: {
+  input: {
     label: "#898989",
-    inputBgHover: "#2a2a2a",
+    bgHover: "#2a2a2a",
+    boxShadow: "rgba(0, 0, 0, 0.8)",
+    bgFocus: "#2a2a2a",
   },
   modal: {
     dimColor: "rgba(15, 15, 15, 0.8)",
@@ -27,9 +29,11 @@ export const lightTheme: DefaultTheme = {
   buttonHoverColor: "rgba(55, 53, 47, 0.08)",
   blue: "rgb(35, 131, 226)",
   boxColor: "rgba(251,251,250,255)",
-  form: {
+  input: {
     label: "#83827f",
-    inputBgHover: "#f1f1f0",
+    bgHover: "#f1f1f0",
+    boxShadow: "rgba(0, 0, 0, 0.5)",
+    bgFocus: "white",
   },
   modal: {
     dimColor: "rgba(0, 0, 0, 0.4)",

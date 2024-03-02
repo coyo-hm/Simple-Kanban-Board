@@ -11,7 +11,7 @@ const Card = styled.div<{
       ? props.backgroundColor
       : props.theme.key === "dark"
         ? props.backgroundColor + "33"
-        : "white"};
+        : "rgba(247,247,245,255)"};
   color: ${(props) => props.theme.textColor};
   border-radius: 5px;
   padding: 10px;
