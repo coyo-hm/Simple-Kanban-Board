@@ -5,7 +5,8 @@ import { useForm } from "react-hook-form";
 import { IToDoState, toDoState } from "../stores";
 import { CardForm } from "../types/card";
 import DraggableCard from "./DraggableCard";
-import BoardContainer, { CardListContainer } from "./BoardContainer";
+import BoardContainer from "./BoardContainer";
+import CardListContainer from "./CardListContainer";
 import EditButton from "./Button/EditButton";
 import Input from "./Input";
 

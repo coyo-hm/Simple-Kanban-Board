@@ -1,6 +1,6 @@
+import React from "react";
 import styled from "styled-components";
 import ToggleTheme from "../ToggleTheme";
-import React from "react";
 
 const HeaderContainer = styled.header`
   height: 45px;
