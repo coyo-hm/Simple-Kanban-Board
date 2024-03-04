@@ -1,6 +1,7 @@
 # Simple Kanban Board
 
-
+[![npm version](https://img.shields.io/github/package-json/v/coyo-hm/Simple-Kanban-Board)](https://github.com/coyo-hm/Simple-Kanban-Board)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 > react-beautiful-dnd를 이용한 노션 보드 클론 코딩입니다.
 >
@@ -9,6 +10,23 @@
 > - context api를 사용하여 theme toggle을 구현하였습니다.
 > - localStorage를 이용해서 기존의 작성했던 보드의 정보를 저장해주었습니다.
 
+## Table of contents
+
+- [Simple Kanban Board](#simple-kanban-board)
+  - [Table of contents](#table-of-contents)
+  - [🔗 Link](#-link)
+  - [✅ Feat](##-feat)
+    - [Theme Switching](#theme-Switching)
+    - [Board & Card Drag and Drop](#board--card-drag-and-drop)
+    - [Board 생성](#board-생성)
+    - [Board 색상 추가](#board-색상-추가)
+  - [👉🏻 Quick Start](#-quick-start)
+  - [🛠️ Tech Stack](#-tech-stack)
+
+## 🔗 Link
+
+- [Demo Page](https://coyo-hm.github.io/Simple-Kanban-Board/)
+- [Github Repository](https://github.com/coyo-hm/Simple-Kanban-Board)
 
 ## ✅ Feat
 
@@ -57,7 +75,3 @@ npm start
 - [styled-components v_5.3.5](https://styled-components.com/)
 - [typescript v_4.8.3](https://www.typescriptlang.org/)
 
-## 🔗 URL
-
-- [Demo Page](https://coyo-hm.github.io/Simple-Kanban-Board/)
-- [Github Repository](https://github.com/coyo-hm/Simple-Kanban-Board)
