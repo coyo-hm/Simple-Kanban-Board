@@ -1,14 +1,15 @@
 {
   "files": {
-    "main.js": "/Simple-Kanban-Board/static/js/main.ea0e328c.js",
+    "main.js": "/Simple-Kanban-Board/static/js/main.2069c263.js",
     "static/media/Icon_bin_closed.png": "/Simple-Kanban-Board/static/media/Icon_bin_closed.6e3e44a1e042545d96ff.png",
     "static/media/Icon_bin_opened.png": "/Simple-Kanban-Board/static/media/Icon_bin_opened.9ccf87da8b9711bbd60c.png",
     "index.html": "/Simple-Kanban-Board/index.html",
+    "static/media/Icon_add.svg": "/Simple-Kanban-Board/static/media/Icon_add.8406ae867d56163b9ebd8a7d168fbd0e.svg",
     "static/media/reset.svg": "/Simple-Kanban-Board/static/media/reset.0cb663709871b942e664e9e9a6936b51.svg",
     "static/media/Icon_edit.svg": "/Simple-Kanban-Board/static/media/Icon_edit.44cad4d351db1bc4ac03d819d3643c7d.svg",
-    "main.ea0e328c.js.map": "/Simple-Kanban-Board/static/js/main.ea0e328c.js.map"
+    "main.2069c263.js.map": "/Simple-Kanban-Board/static/js/main.2069c263.js.map"
   },
   "entrypoints": [
-    "static/js/main.ea0e328c.js"
+    "static/js/main.2069c263.js"
   ]
 }
