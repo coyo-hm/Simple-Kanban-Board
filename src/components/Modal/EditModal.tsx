@@ -2,18 +2,21 @@ import React, { KeyboardEvent, useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
-import useModal from "../../hooks/useModal";
-import { colorChartState, IToDoState, toDoState } from "../../stores";
-import SaveButton from "../Button/SaveButton";
 import {
   DragDropContext,
   DragStart,
   Droppable,
   DropResult,
 } from "react-beautiful-dnd";
+
+import useModal from "../../hooks/useModal";
+import { colorChartState, IToDoState, toDoState } from "../../stores";
+
+import SaveButton from "../Button/SaveButton";
 import DraggableCard from "../DraggableCard";
-import EmptyMessage from "../EmptyMessage";
 import Input from "../Input";
+import EmptyMessage from "../EmptyMessage";
+import ColorChipModal from "./ColorChipModal";
 
 const EditForm = styled.form`
   display: flex;
@@ -130,8 +133,7 @@ export default function EditModal({ selectedBoardId }: Props) {
       id: Date.now(),
       text: toDo,
     };
-    const cardList = [...getValues("list")];
-    setValue("list", [...cardList, newTodo]);
+    setValue("list", [...getValues("list"), newTodo]);
     setToDo("");
   };
 
@@ -171,6 +173,10 @@ export default function EditModal({ selectedBoardId }: Props) {
                 name={"backgroundColor"}
               />
             ))}
+            <ColorChipModal
+              prevColor={getValues("backgroundColor")}
+              onSaveColor={(color) => setValue("backgroundColor", color.hex)}
+            />
           </ColorChipContainer>
         </div>
         <div className={"divider"} />
