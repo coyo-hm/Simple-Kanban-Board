@@ -6,8 +6,8 @@ import {
   DropResult,
 } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
-import { IToDoState, toDoState } from "../stores";
-import { CONSTANT } from "../helpers/constant";
+import { colorChartState, IToDoState, toDoState } from "../stores";
+import CONSTANT from "../helpers/constant";
 import DraggableBoard from "./DraggableBoard";
 import DroppableAreaContainer from "./DroppableAreaContainer";
 import DeleteButton from "./Button/DeleteButton";
@@ -16,19 +16,28 @@ import BoardListContainer from "./BoardListContainer";
 
 export default function DroppableArea() {
   const [toDos, setToDos] = useRecoilState(toDoState);
+  const [colorChart, setColorChart] = useRecoilState(colorChartState);
   const [isBoardDropDisabled, setIsBoardDropDisabled] = useState(false);
   const [isCardDropDisabled, setIsCardDropDisabled] = useState(false);
 
   useEffect(() => {
     let savedTodo: IToDoState[] = JSON.parse(
-      localStorage.getItem("TODOS") || "[]",
+      localStorage.getItem(CONSTANT.STORE.TODOS) || "[]",
+    );
+    let savedColors: string[] = JSON.parse(
+      localStorage.getItem(CONSTANT.STORE.COLORS) || "[]",
     );
     setToDos(savedTodo);
+    setColorChart(savedColors);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("TODOS", JSON.stringify(toDos));
+    localStorage.setItem(CONSTANT.STORE.TODOS, JSON.stringify(toDos));
   }, [toDos]);
+
+  useEffect(() => {
+    localStorage.setItem(CONSTANT.STORE.COLORS, JSON.stringify(colorChart));
+  }, [colorChart]);
 
   const deleteCard = (boardId: string, cardId: number) => {
     setToDos((allBoards) => {
@@ -102,7 +111,7 @@ export default function DroppableArea() {
           newSourceBoard.splice(source.index, 1);
           newDestinationBoard.splice(destination?.index, 0, targetCard);
 
-          const newBoards = allBoards.map((board) => {
+          return allBoards.map((board) => {
             if (board.id === source.droppableId) {
               return {
                 ...sourceBoard,
@@ -115,8 +124,6 @@ export default function DroppableArea() {
               };
             } else return board;
           });
-
-          return newBoards;
         });
       }
     }

@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 import Button from "../Button/Button";
 import useModal from "../../hooks/useModal";
@@ -52,7 +52,7 @@ interface Props {
   content: ReactNode;
 }
 
-const Modal = forwardRef(function Modal({ content }: Props) {
+function Modal({ content }: Props) {
   const { setModal } = useModal();
   return (
     <ModalContainer>
@@ -62,5 +62,5 @@ const Modal = forwardRef(function Modal({ content }: Props) {
       <div>{content}</div>
     </ModalContainer>
   );
-});
+}
 export default Modal;

@@ -1,7 +1,7 @@
 import React, { KeyboardEvent, useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   DragDropContext,
   DragStart,
@@ -11,12 +11,11 @@ import {
 
 import useModal from "../../hooks/useModal";
 import { colorChartState, IToDoState, toDoState } from "../../stores";
-
 import SaveButton from "../Button/SaveButton";
 import DraggableCard from "../DraggableCard";
 import Input from "../Input";
 import EmptyMessage from "../EmptyMessage";
-import ColorChipModal from "./ColorChipModal";
+import ColorPicker from "../ColorPicker";
 
 const EditForm = styled.form`
   display: flex;
@@ -48,36 +47,6 @@ const EditForm = styled.form`
   }
 `;
 
-const ColorChipContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-`;
-
-const ColorChip = styled.input<{ bgColor: string }>`
-  vertical-align: middle;
-  appearance: none;
-  outline: none;
-  background-color: ${(props) => props.bgColor};
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  border: 4px solid ${(prop) => prop.theme.textColor};
-  cursor: pointer;
-  margin: 0;
-
-  &:checked {
-    border-color: ${(prop) => prop.theme.blue};
-  }
-
-  &:hover,
-  &:focus-visible {
-    outline-offset: max(2px, 0.1em);
-    outline: max(2px, 0.1em) dotted ${(prop) => prop.theme.blue};
-  }
-`;
-
 const CardListContainer = styled.div`
   width: 100%;
   display: flex;
@@ -89,7 +58,7 @@ interface Props {
   selectedBoardId?: string;
 }
 
-interface IFormInput extends Omit<IToDoState, "id"> {
+export interface IFormInput extends Omit<IToDoState, "id"> {
   boardId: string;
 }
 
@@ -97,8 +66,8 @@ export default function EditModal({ selectedBoardId }: Props) {
   const isUpdateMode = !!selectedBoardId;
   const { setModal } = useModal();
   const [toDos, setToDos] = useRecoilState(toDoState);
-  const [colorChart, setColorChart] = useRecoilState(colorChartState);
-  const { register, getValues, setValue, handleSubmit } = useForm<IFormInput>({
+  const colorChart = useRecoilValue(colorChartState);
+  const Form = useForm<IFormInput>({
     defaultValues: isUpdateMode
       ? {
           boardId: selectedBoardId,
@@ -110,6 +79,7 @@ export default function EditModal({ selectedBoardId }: Props) {
       : { boardId: "", backgroundColor: colorChart[0], list: [] },
   });
 
+  const { register, getValues, setValue, handleSubmit } = Form;
   const [toDo, setToDo] = useState("");
 
   const onSubmit = ({ boardId, ...rest }: IFormInput) => {
@@ -161,23 +131,7 @@ export default function EditModal({ selectedBoardId }: Props) {
         </div>
         <div className={"input"}>
           <label htmlFor={"backgroundColor"}>보드 색상</label>
-          <ColorChipContainer>
-            {colorChart.map((color) => (
-              <ColorChip
-                id={`backgroundColor_${color}`}
-                type={"radio"}
-                value={color}
-                bgColor={color}
-                key={color}
-                {...register("backgroundColor", { required: true })}
-                name={"backgroundColor"}
-              />
-            ))}
-            <ColorChipModal
-              prevColor={getValues("backgroundColor")}
-              onSaveColor={(color) => setValue("backgroundColor", color.hex)}
-            />
-          </ColorChipContainer>
+          <ColorPicker Form={Form} />
         </div>
         <div className={"divider"} />
         <Input
