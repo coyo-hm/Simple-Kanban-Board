@@ -10,30 +10,6 @@
 > - localStorage를 이용해서 기존의 작성했던 보드의 정보를 저장해주었습니다.
 
 
-
-## 👉🏻 Quick Start
-
-```shell
-npm install
-npm start
-```
-
-## 🛠️ Tech Stack
-
-- [react v_18.2.0](https://ko.legacy.reactjs.org/)
-- [react-beautiful-dnd v_13.1.0](https://www.npmjs.com/package/react-beautiful-dnd)
-- [react-helmet v_6.1.0](https://www.npmjs.com/package/react-helmet)
-- [react-hook-form v_7.34.0](https://react-hook-form.com/)
-- [react-color v_2.19.3](https://casesandberg.github.io/react-color/)
-- [recoil v_0.7.4](https://recoiljs.org/ko/)
-- [styled-components v_5.3.5](https://styled-components.com/)
-- [typescript v_4.8.3](https://www.typescriptlang.org/)
-
-## 🔗 URL
-
-- [Demo Page](https://coyo-hm.github.io/Simple-Kanban-Board/)
-- [Github Repository](https://github.com/coyo-hm/Simple-Kanban-Board)
-
 ## ✅ Feat
 
 ### Theme Switching
@@ -62,3 +38,26 @@ npm start
 > Recoil과 React-Color를 이용하여 보드 색상을 관리 구현
 
 ![add_board_colors](https://github.com/coyo-hm/Simple-Kanban-Board/assets/56423604/eaa18b5b-628d-4f59-a71e-a82e6eb964c1)
+
+## 👉🏻 Quick Start
+
+```shell
+npm install
+npm start
+```
+
+## 🛠️ Tech Stack
+
+- [react v_18.2.0](https://ko.legacy.reactjs.org/)
+- [react-beautiful-dnd v_13.1.0](https://www.npmjs.com/package/react-beautiful-dnd)
+- [react-helmet v_6.1.0](https://www.npmjs.com/package/react-helmet)
+- [react-hook-form v_7.34.0](https://react-hook-form.com/)
+- [react-color v_2.19.3](https://casesandberg.github.io/react-color/)
+- [recoil v_0.7.4](https://recoiljs.org/ko/)
+- [styled-components v_5.3.5](https://styled-components.com/)
+- [typescript v_4.8.3](https://www.typescriptlang.org/)
+
+## 🔗 URL
+
+- [Demo Page](https://coyo-hm.github.io/Simple-Kanban-Board/)
+- [Github Repository](https://github.com/coyo-hm/Simple-Kanban-Board)
