@@ -9,6 +9,8 @@ import BoardContainer from "./BoardContainer";
 import CardListContainer from "./CardListContainer";
 import EditButton from "./Button/EditButton";
 import Input from "./Input";
+import useModal from "../hooks/useModal";
+import EditModal from "./Modal/EditModal";
 
 interface IBoardProps {
   board: IToDoState;
@@ -23,6 +25,8 @@ export default function DraggableBoard({
 }: IBoardProps) {
   const setToDos = useSetRecoilState(toDoState);
   const { register, setValue, handleSubmit } = useForm<CardForm>();
+  const { setModal } = useModal();
+
   const onSubmit = ({ toDo }: CardForm) => {
     const newTodo = {
       id: Date.now(),
@@ -38,6 +42,9 @@ export default function DraggableBoard({
     );
   };
 
+  const onOpenEditModal = (boardId: string) =>
+    setModal(<EditModal selectedBoardId={boardId} />);
+
   return (
     <Draggable draggableId={board.id} index={idx}>
       {(provided) => (
@@ -50,8 +57,8 @@ export default function DraggableBoard({
           <header>
             <h1 className={"title"}>{board.id}</h1>
             <EditButton
-              boardId={board.id}
               backgroundColor={board.backgroundColor}
+              onClick={() => onOpenEditModal(board.id)}
             />
           </header>
           <form onSubmit={handleSubmit(onSubmit)}>

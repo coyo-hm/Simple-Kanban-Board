@@ -1,11 +1,10 @@
-import React from "react";
+import React, { HTMLAttributes } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import { ReactComponent as IconEdit } from "../../images/Icon_edit.svg";
-import useModal from "../../hooks/useModal";
-import EditModal from "../Modal/EditModal";
 
-const Container = styled(Button)<{ backgroundColor: string }>`
+const Container = styled.button<{ backgroundColor: string }>`
+  ${Button};
   width: 30px;
   height: 30px;
   padding: 0;
@@ -13,8 +12,10 @@ const Container = styled(Button)<{ backgroundColor: string }>`
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  color: ${(prop) => prop.backgroundColor};
-  border: 1px solid ${(prop) => prop.backgroundColor};
+  color: ${(prop) =>
+    prop.theme.key === "dark" ? prop.backgroundColor : "white"};
+  border: 2px solid
+    ${(prop) => (prop.theme.key === "dark" ? prop.backgroundColor : "white")};
 
   &:hover {
     color: ${(prop) => prop.theme.blue};
@@ -22,19 +23,13 @@ const Container = styled(Button)<{ backgroundColor: string }>`
   }
 `;
 
-interface Props {
-  boardId: string;
+interface Props extends HTMLAttributes<HTMLButtonElement> {
   backgroundColor: string;
 }
 
-export default function EditButton({ boardId, backgroundColor }: Props) {
-  const { setModal } = useModal();
-
-  const openUpdateModal = () => {
-    setModal(<EditModal selectedBoardId={boardId} />);
-  };
+export default function EditButton({ backgroundColor, ...rest }: Props) {
   return (
-    <Container onClick={openUpdateModal} backgroundColor={backgroundColor}>
+    <Container backgroundColor={backgroundColor} {...rest}>
       <IconEdit width={24} height={24} strokeWidth={1.5} />
     </Container>
   );
