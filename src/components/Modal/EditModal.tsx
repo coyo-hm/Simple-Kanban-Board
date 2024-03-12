@@ -2,12 +2,7 @@ import React, { KeyboardEvent, useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  DragDropContext,
-  DragStart,
-  Droppable,
-  DropResult,
-} from "react-beautiful-dnd";
+import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 
 import useModal from "../../hooks/useModal";
 import { colorChartState, IToDoState, toDoState } from "../../stores";
@@ -107,7 +102,13 @@ export default function EditModal({ selectedBoardId }: Props) {
     setToDo("");
   };
 
-  const onDragStart = ({ source }: DragStart) => {};
+  const updateCard = (toDoId: number, toDoText: string) => {
+    const newList = getValues("list").map((toDo) =>
+      toDo.id != toDoId ? toDo : { ...toDo, text: toDoText },
+    );
+    setValue("list", newList);
+  };
+
   const onDragEnd = ({ destination, source }: DropResult) => {
     if (!destination) return;
     const cardList = [...getValues("list")];
@@ -143,7 +144,7 @@ export default function EditModal({ selectedBoardId }: Props) {
         {getValues("list").length === 0 ? (
           <EmptyMessage label={"카드"} />
         ) : (
-          <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
+          <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId={"card"}>
               {(provided, snapshot) => (
                 <CardListContainer
@@ -157,6 +158,7 @@ export default function EditModal({ selectedBoardId }: Props) {
                       toDoId={toDo.id}
                       toDoText={toDo.text}
                       backgroundColor={getValues("backgroundColor")}
+                      updateToDo={updateCard}
                     />
                   ))}
                   {provided.placeholder}

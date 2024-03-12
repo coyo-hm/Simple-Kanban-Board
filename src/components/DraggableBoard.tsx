@@ -42,6 +42,21 @@ export default function DraggableBoard({
     );
   };
 
+  const updateToDo = (toDoId: number, toDoText: string) => {
+    setToDos((allBoards) =>
+      allBoards.map((toDos) =>
+        toDos.id === board.id
+          ? {
+              ...board,
+              list: toDos.list.map((todo) =>
+                todo.id === toDoId ? { ...todo, text: toDoText } : todo,
+              ),
+            }
+          : toDos,
+      ),
+    );
+  };
+
   const onOpenEditModal = (boardId: string) =>
     setModal(<EditModal selectedBoardId={boardId} />);
 
@@ -84,6 +99,7 @@ export default function DraggableBoard({
                     toDoId={toDo.id}
                     toDoText={toDo.text}
                     backgroundColor={board.backgroundColor}
+                    updateToDo={updateToDo}
                   />
                 ))}
                 {provided.placeholder}
